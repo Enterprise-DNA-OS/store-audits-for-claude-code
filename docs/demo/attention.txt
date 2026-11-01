@@ -1,0 +1,4 @@
+  kind            reference  site                          owner   due       
+  --------------  ---------  ----------------------------  ------  ----------
+  Action overdue  FIX-PRICE  Harbour Homewares Wellington  Aroha   2026-10-25
+  Visit overdue   AKL-NEXT   Harbour Homewares Auckland    Jordan  2026-10-30

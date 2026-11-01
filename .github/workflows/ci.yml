@@ -1,24 +1,21 @@
-name: Verify commands
+name: Tests
 on:
-  # Manual only since 2026-10-18 to save GitHub Actions minutes (Sam). To restore, put back:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  smoke:
+  embedded:
     strategy:
-      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: [20, 22]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npm test
@@ -29,17 +26,20 @@ jobs:
       postgres:
         image: postgres:17
         env:
-          POSTGRES_PASSWORD: disposable
-          POSTGRES_DB: rebuild_test
+          POSTGRES_USER: store_test
+          POSTGRES_PASSWORD: disposable_test_password
+          POSTGRES_DB: store_test
         ports: ['5432:5432']
-        options: --health-cmd pg_isready --health-interval 5s --health-retries 10
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npm test
         env:
-          TEST_DATABASE_URL: postgres://postgres:disposable@localhost:5432/rebuild_test?sslmode=disable
+          TEST_DATABASE_URL: postgres://store_test:disposable_test_password@localhost:5432/store_test?sslmode=disable

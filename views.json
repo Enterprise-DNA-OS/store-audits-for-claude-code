@@ -1,13 +1,34 @@
 [
   {
-    "name": "week",
-    "title": "This week",
-    "subtitle": "Store Audits for Claude Code: what needs attention, rendered by npm run view",
+    "name": "store-week",
+    "title": "The store audit week",
+    "subtitle": "Fictional demo until your records are imported. Scores exclude not-applicable answers.",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Visit coverage",
+        "sql": "select code,name,owner,last_visit,next_visit,coverage from store.coverage order by code"
+      },
+      {
+        "title": "Audit scores",
+        "sql": "select code,site,status,unanswered,critical_failures,score_pct,verdict from store.scorecard order by code"
+      },
+      {
+        "title": "Repeat failures",
+        "sql": "select * from store.repeat_failures order by site,check_code"
+      }
+    ]
+  },
+  {
+    "name": "corrective-work",
+    "title": "Corrective work and evidence",
+    "sections": [
+      {
+        "title": "Open and completed work",
+        "sql": "select code,site,title,owner,due_date,state,revisit_on from store.action_register where state<>'verified' order by due_date"
+      },
+      {
+        "title": "Checks needing review",
+        "sql": "select * from store.compliance_findings order by rule,site"
       }
     ]
   }

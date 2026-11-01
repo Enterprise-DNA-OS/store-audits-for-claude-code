@@ -1,115 +1,103 @@
-<h1 align="center">Store Audits for Claude Code</h1>
+# Store Audits for Claude Code
 
-<p align="center">
-  <strong>The open-source store audit system that is just a database and Claude Code.</strong>
-</p>
+Find the store that failed the same check twice, the visit nobody completed and the correction that still needs proof. Keep store standards and visit history in a database you own.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free, MIT licensed. Install the fictional retail week. | Your checklists, scoring, evidence rules and GoAudits mapping. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
+| [Quick start](#quick-start) | [Get your version built](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=goaudits&utm_medium=customise) | [Book a call](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=goaudits&utm_medium=managed) |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your GoAudits data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=goaudits">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/goaudits?utm_source=github&utm_medium=readme&utm_campaign=goaudits">How it works</a></td>
-  </tr>
-</table>
-
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-goaudits">Instead of GoAudits</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Store Audits for Claude Code does the job you pay GoAudits for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the GoAudits dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays GoAudits per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=goaudits).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
+For regional managers of general merchandise stores. Runs with Claude Code, Codex, OpenCode or Cursor. GoAudits is a broader mobile inspection platform. This base covers fixed checklists, visit planning, evidence references and corrective work. [Scope and research](docs/research.md).
 
 ## Quick start
 
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or later, Windows or Linux:
 
 ```bash
 git clone https://github.com/Enterprise-DNA-OS/store-audits-for-claude-code.git
 cd store-audits-for-claude-code
 npm install
 npm run demo
+npm test
+npm run view
+npm run docs
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+The demo is fictional. Wellington has two failed shelf-price checks, Auckland has an overdue visit, and Sydney has no recorded visit. Evidence needs review and one correction is overdue. Repeating the seed does not overwrite your changes.
 
-### Use it with your own Postgres or Supabase
+PGlite stores the local database in .data/db. DATABASE_URL selects Postgres. Use a fresh DATA_DIR or a new database for business records, migrate it and import your records. Do not seed fictional data into your business database. Local PGlite runs one process at a time.
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+## Five recurring jobs
 
-## The commands
+1. /visit-plan: prepare the regional visit list and identify missed appointments.
+2. /scorecard: review unanswered checks, weighted results and critical failures.
+3. /repeat-failures: find the same standard failing on separate visits.
+4. /overdue-actions: chase corrections that are still open or awaiting verification.
+5. /weekly-review: combine visit coverage, scores, repeat problems and assigned work.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+36 CLI commands and 38 slash recipes are included. Every CLI command supports --json. [Arguments and examples](docs/cli.md).
 
-| Command | What it does |
+## Ten questions answered today
+
+GoAudits also offers reporting and trends. These are questions this build answers from its own records, not a claim that the incumbent cannot answer them.
+
+| Question | Command |
 |---|---|
-| `/...` | ... |
+| Which planned visits are overdue and who owns them? | attention |
+| Which stores have never had a recorded visit? | coverage |
+| Where did the same check fail on separate visits? | repeat-failures |
+| Which scores contain a critical failure? | scorecard |
+| Which visits still have unanswered questions? | scorecard |
+| Which corrections are completed but still unverified? | actions |
+| Which corrections have a revisit date? | revisits |
+| Which evidence references need a purpose and retention review? | compliance |
+| Which imported answers still need a reviewed mapping? | compliance |
+| Who changed an action, and what reason did they record? | history |
 
-## Instead of GoAudits
+## A visit through to verification
 
-<!-- TODO(author): how to bring data across from GoAudits; link docs/replace-goaudits.md -->
+Plan a visit to snapshot all active standards. Record pass, fail or not-applicable for each check. Failed and not-applicable answers need a note. Every failed answer needs an assigned corrective action before the visit can be submitted.
 
-## Architecture
+Local scores divide passed weights by answered applicable weights. Not-applicable answers are excluded. Unanswered audits stay labelled Incomplete. A critical failure is shown regardless of the percentage. An all-not-applicable checklist has no numeric score. Imported history has no locally calculated score; the vendor's values stay in the retained source record.
 
+Attach an evidence reference with its purpose, access owner and review date. Complete the action with a resolution and evidence belonging to that same check. A different reviewer verifies it. Reopen it with a reason when the correction fails. Submitted answers and original import rows remain unchanged. A later observation belongs in a new visit.
+
+The actor label records attribution but does not authenticate the person. Database owners are trusted administrators. A shared installation needs proper identity, scoped roles, private storage and tested recovery.
+
+## Bring your GoAudits history
+
+```bash
+npm run audit -- import goaudits --file=fixtures/goaudits-details.json --source=demo-account --answers=fixtures/answers.json --actor="Import reviewer" --dry-run
+npm run audit -- import goaudits --file=fixtures/goaudits-details.json --source=demo-account --answers=fixtures/answers.json --actor="Import reviewer"
 ```
-store-audits-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
 
-## Built for coding agents
+The fixture follows the documented audit-details JSON structure. Workbook exports need the question-level sheet saved as CSV UTF-8, with headings mapped and dates checked. The whole import succeeds or rolls back. Unmapped answer labels are flagged, and changed source keys are rejected. Original scores and extra source fields are preserved. [Export, mapping and reconciliation guide](docs/replace-goaudits.md).
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+The free base does not fetch photos, copy notifications, migrate action-plan history or reproduce conditional forms. Enterprise DNA scopes those needs when building your version. Retain the original exports and check a representative store before switching.
 
-## Contributing
+## Your first hour: ten things to ask for
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+1. Put our business name and logo on every store report.
+2. Show which stores have never been visited.
+3. Prepare the next regional visit list.
+4. Explain why a critical failure remains visible beside the score.
+5. Find the same price check failing twice.
+6. Draft a visit brief without sending it.
+7. Show who is responsible for overdue corrections.
+8. Review the purpose and access owner for a photo reference.
+9. Add a merchandising standard through /customise.
+10. Preview a source export, inspect the answer mapping and reconcile the row count.
 
-## Want it installed and run for you?
+## Documents and views
 
-Enterprise DNA installs Store Audits for Claude Code for your business, migrates your GoAudits data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+npm run docs renders store visit reports, corrective action records and evidence review registers as branded HTML. npm run view renders the store week and corrective-work dashboards. Edit brand.json for your own name, logo and colours. These are read-only files that print to PDF, with no server to run. [What mobile screens add](docs/why-no-front-end.md).
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=goaudits)
-- Read more: [enterprisedna.co/omni/instead-of/goaudits](https://enterprisedna.co/omni/instead-of/goaudits?utm_source=github&utm_medium=readme&utm_campaign=goaudits)
+The compliance command checks recorded price discrepancies, overdue evidence reviews, unanswered imports and gaps in corrective work. [Sources, internal policies and limits](docs/compliance.md). These checks are not legal certification and do not inspect the physical shop or the actual evidence file.
 
-## License
+## Tests and operation
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+npm test uses a temporary database, runs every command and tests scoring, required answers, immutable snapshots, evidence linkage, reviewer separation, atomic imports, replay protection, CSV handling, JSON output and HTML escaping. TEST_DATABASE_URL optionally selects a fresh disposable Postgres database. The CI workflow runs Windows and Linux plus a Postgres job. See docs/validation.md for completed runs.
+
+export writes all nine record sets to a new JSON file and refuses to overwrite one. This is an interchange snapshot, not an automatic restore. Back up the database and referenced evidence separately. Exported personal data, imports and generated reports stay out of Git.
+
+MIT licensed. Not affiliated with GoAudits or Anthropic. Hosting, agent subscriptions and operation have separate costs. [Book 30 minutes with Sam](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=goaudits&utm_medium=readme).

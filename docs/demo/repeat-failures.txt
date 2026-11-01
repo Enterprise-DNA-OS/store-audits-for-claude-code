@@ -1,0 +1,3 @@
+  site                          check_code  question                                failed_visits  latest_visit
+  ----------------------------  ----------  --------------------------------------  -------------  ------------
+  Harbour Homewares Wellington  PRICE       Shelf price matches the checkout price  2              2026-09-27

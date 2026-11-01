@@ -1,11 +1,54 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "visit-report",
+    "title": "Store visit report",
+    "for_each": "select id,code from store.audits order by code",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Visit and score",
+        "sql": "select code,site,status,visited_on,total_checks,unanswered,failures,critical_failures,score_pct,verdict from store.scorecard where id=$1",
+        "layout": "record"
+      },
+      {
+        "title": "Checklist responses",
+        "sql": "select code,section,question,outcome,note from store.checks where audit_id=$1 order by section,code"
+      },
+      {
+        "title": "Corrective actions",
+        "sql": "select x.code,x.title,x.owner,x.due_date,x.state from store.actions x join store.checks c on c.id=x.check_id where c.audit_id=$1 order by x.due_date"
+      }
+    ]
+  },
+  {
+    "name": "action-record",
+    "title": "Corrective action record",
+    "for_each": "select id,code from store.actions order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Assignment and verification",
+        "sql": "select code,site,audit,title,owner,due_date,state,resolution,evidence,completed_by,verified_by from store.action_register where id=$1",
+        "layout": "record"
+      }
+    ]
+  },
+  {
+    "name": "evidence-register",
+    "title": "Store evidence review register",
+    "for_each": "select id,code from store.sites order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Store",
+        "sql": "select code,name,region,owner,country from store.sites where id=$1",
+        "layout": "record"
+      },
+      {
+        "title": "Evidence references",
+        "sql": "select e.code,e.reference,e.personal,e.purpose,e.access_owner,e.review_on from store.evidence e join store.checks c on c.id=e.check_id join store.audits a on a.id=c.audit_id where a.site_id=$1 order by e.review_on",
+        "note": "References only. Review the actual files and their access controls separately."
+      }
     ]
   }
 ]

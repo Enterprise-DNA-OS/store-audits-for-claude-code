@@ -1,0 +1,31 @@
+[
+  {
+    "auditDetails": {
+      "name": "Store Standards",
+      "location": "Fictional Christchurch",
+      "id": 921,
+      "date": "2026-10-01",
+      "status": "Completed",
+      "company": "Fictional Homewares",
+      "auditor": "Demo auditor",
+      "section": "Presentation",
+      "actualScore": "0",
+      "expectedScore": "10",
+      "score": "0",
+      "questionNumber": "2",
+      "question": "Promotion label is current",
+      "answer": "No",
+      "groupName": "Entrance",
+      "recordType": "Question",
+      "locationCode": "CHC",
+      "clientId": "DEMO",
+      "auditTypeId": "STORE-V1",
+      "locationId": "LOC-4",
+      "comments": "Previous promotion remains",
+      "questionId": null,
+      "autofail": "0",
+      "updatedOn": "2026-10-01T12:00:00Z"
+    },
+    "customFields": []
+  }
+]

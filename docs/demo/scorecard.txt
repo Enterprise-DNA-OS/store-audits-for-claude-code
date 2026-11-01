@@ -1,0 +1,5 @@
+  code        site                          status     total_checks  unanswered  failures  critical_failures  score_pct  verdict         
+  ----------  ----------------------------  ---------  ------------  ----------  --------  -----------------  ---------  ----------------
+  AKL-NEXT    Harbour Homewares Auckland    planned    3             3           0         0                             Incomplete      
+  WGN-LATEST  Harbour Homewares Wellington  submitted  3             0           1         1                  50.0       Critical failure
+  WGN-OLD     Harbour Homewares Wellington  submitted  3             0           1         1                  50.0       Critical failure
