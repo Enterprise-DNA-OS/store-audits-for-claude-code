@@ -68,7 +68,7 @@ h2{margin:0 0 8px;font-size:16px;color:var(--p);text-transform:uppercase;letter-
 table.wide{min-width:640px}.wide th,.wide td{min-width:120px}.wide th:first-child,.wide td:first-child{min-width:160px}td.date-cell{white-space:nowrap}td{padding:8px 10px;border-bottom:1px solid #f0f0f4;vertical-align:top;overflow-wrap:anywhere}tr:hover td{background:#faf9ff}.empty{color:#888;margin:0}
 .record-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 24px;margin:0}.record-grid dt{font-size:12px;text-transform:uppercase;color:#666;margin-bottom:5px}.record-grid dd{margin:0;overflow-wrap:anywhere;line-height:1.5}\nfooter{text-align:center;color:#888;font-size:12px;padding:20px}
 @media(max-width:600px){header{flex-wrap:wrap;padding:18px}header .biz{margin-left:0}main{padding:16px 10px}section{padding:14px}th,td{padding:7px}}
-@media print{table.wide{min-width:0}.table-scroll{overflow:visible}table{font-size:10px}th,td{padding:4px;white-space:normal;overflow-wrap:anywhere}body{background:#fff}section{box-shadow:none;border:1px solid #eee;break-inside:avoid}}
+@media print{table.wide{min-width:0}.wide th,.wide td{min-width:0}.table-scroll{overflow:visible}table{font-size:10px}th,td{padding:4px;white-space:normal;overflow-wrap:anywhere}body{background:#fff}section{box-shadow:none;border:1px solid #eee;break-inside:avoid}}
 </style></head><body>
 <header>${logo}<div><h1>${esc(title)}</h1><div class="sub">${esc(subtitle)}</div></div><div class="biz">${esc(brand.business_name)}</div></header>
 <main>${blocks}</main>
